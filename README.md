@@ -1,0 +1,2 @@
+# ViteReact_Project_for_OpenShift
+ ViteReact_Project_for_OpenShift
