@@ -19,5 +19,6 @@ USER node
 
 # Exponer el puerto y definir el comando de inicio
 EXPOSE 3000
-CMD ["npm", "run", "build"]
+CMD ["npm", "run", "build", "--unsafe-perm"]
+
 
