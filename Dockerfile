@@ -1,27 +1,25 @@
 FROM node:latest
+
+# Establecer el directorio de trabajo
 WORKDIR /usr/src/app
 
 # Copiar el archivo package.json e instalar las dependencias
 COPY package.json .
+
+# Instalar las dependencias
 RUN npm install
 
 # Copiar el resto de la aplicación
-COPY . ./
+COPY . .
 
 # Establecer los permisos adecuados para los archivos
-RUN chown -R 1000670000:0 "/.npm"
-RUN sudo chown -R 1000670000:0 "/.npm"
 RUN chown -R node:node /usr/src/app
-RUN chown -R 1000670000:0 /usr/src/app
-
-# Cambiar los permisos del directorio .npm
-RUN mkdir /.npm && chown -R node:node /.npm
 
 # Cambiar al usuario no privilegiado para evitar ejecutar la aplicación como root
 USER node
 
-# Exponer el puerto y definir el comando de inicio
+# Exponer el puerto
 EXPOSE 3000
-CMD ["npm", "run", "build", "--unsafe-perm"]
 
-
+# Comando de inicio
+CMD ["npm", "run", "build"]
