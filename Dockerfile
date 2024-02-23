@@ -11,6 +11,7 @@ COPY . ./
 # Establecer los permisos adecuados para los archivos
 RUN chown -R node:node /usr/src/app
 
+RUN chown -R 1000670000:0 "/.npm"
 # Cambiar los permisos del directorio .npm
 RUN mkdir /.npm && chown -R node:node /.npm
 
