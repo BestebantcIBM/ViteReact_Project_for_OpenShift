@@ -9,8 +9,10 @@ RUN npm install
 COPY . ./
 
 # Establecer los permisos adecuados para los archivos
-RUN chown -R 1000670000:0 "/.npm
+RUN chown -R 1000670000:0 "/.npm"
+RUN sudo chown -R 1000670000:0 "/.npm"
 RUN chown -R node:node /usr/src/app
+RUN chown -R 1000670000:0 /usr/src/app
 
 # Cambiar los permisos del directorio .npm
 RUN mkdir /.npm && chown -R node:node /.npm
