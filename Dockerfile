@@ -1,25 +1,14 @@
-FROM node:latest
+FROM node:alpine3.10 as build-step
 
-# Establecer el directorio de trabajo
-WORKDIR /usr/src/app
+RUN mkdir /app
+WORKDIR /app
 
-# Copiar el archivo package.json e instalar las dependencias
-COPY package.json .
-
-# Instalar las dependencias
+COPY package.json /app
 RUN npm install
+COPY . /app
 
-# Copiar el resto de la aplicación
-COPY . .
+RUN npm run build
 
-# Establecer los permisos adecuados para los archivos
-RUN chown -R node:node /usr/src/app
-
-# Cambiar al usuario no privilegiado para evitar ejecutar la aplicación como root
-USER node
-
-# Exponer el puerto
-EXPOSE 3000
-
-# Comando de inicio
-CMD ["npm", "run", "build"]
+#Run Steps
+FROM nginx:1.19.8-alpine  
+COPY --from=build-step /app/build /usr/share/nginx/html
